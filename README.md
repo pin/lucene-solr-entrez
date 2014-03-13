@@ -12,7 +12,7 @@ Jar hopefully should appear in target directory. See
 
 	example/core/solrconfig.xml
 
-for [<lib/> directive](https://cwiki.apache.org/confluence/display/solr/Lib+Directives+in+SolrConfig)
+for [\<lib/> directive](https://cwiki.apache.org/confluence/display/solr/Lib+Directives+in+SolrConfig)
 to make Solr load custom classes.
 
 How to run example core
