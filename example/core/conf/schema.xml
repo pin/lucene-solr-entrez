@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<schema name="lucene solr entrez example" version="1.1">
+  <types>
+    <fieldtype name="string"  class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="meshHeading" class="solr.TextField">
+      <analyzer type="index">
+        <tokenizer class="gov.ncbi.lucene.analysis.MeshTokenizerFactory" mode="heading"/>
+      </analyzer>
+    </fieldType>
+    <fieldType name="meshSubheading" class="solr.TextField">
+      <analyzer type="index">
+        <tokenizer class="gov.ncbi.lucene.analysis.MeshTokenizerFactory" mode="subheading"/>
+      </analyzer>
+    </fieldType>
+    <fieldType name="entrezDate" class="gov.ncbi.solr.schema.EntrezDateField"/>
+  </types>
+
+  <fields>
+    <field name="id" type="string"   indexed="true"  stored="true"  multiValued="false" required="true"/>
+    <field name="meshTopic" type="meshHeading" indexed="true" stored="false" multiValued="true"/>
+    <field name="meshSubheading" type="meshSubheading" indexed="true" stored="false" multiValued="true"/>
+    <field name="pubDate" type="entrezDate" indexed="true" stored="true" multiValued="false"/>
+    <field name="_version_" type="long"     indexed="true"  stored="true"/>
+  </fields>
+
+  <copyField source="meshTopic" dest="meshSubheading"/>
+  <uniqueKey>id</uniqueKey>
+  <defaultSearchField>id</defaultSearchField>
+  <solrQueryParser defaultOperator="AND"/>
+</schema>
+
